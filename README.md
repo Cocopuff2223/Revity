@@ -4,7 +4,18 @@
 
 Revity aims to make useful AI available on your own hardware, with efficiency and responsible resource use at the heart of its design. The goal is simple: build an assistant that helps people while being thoughtful about the resources it takes to run.
 
-> **Project status:** Early concept stage. This repository currently contains the project overview only. There is no runnable application, model, or installation process yet.
+> **Project status:** Dataset development stage. The repository includes reproducible synthetic starter data, an evaluation scorer, and automated tests. There is no trained Revity model or runnable AI assistant yet. A Qwen-based Revity 1.0 is a goal, not an available model release.
+
+## Starter datasets
+
+Generate **12,000 examples across six task families** using Python 3.10+:
+
+```sh
+python scripts/build_datasets.py --output data/generated
+python -m unittest discover -s tests -v
+```
+
+The data covers arithmetic, linear equations, sorting, unit conversion, word counting, and Boolean logic. Training, validation, and test splits have no identical prompts, but share templates. See the [dataset documentation](data/README.md) for provenance, limitations, and evaluation instructions. These are narrow synthetic tasks, not a broad knowledge corpus or proof of model reasoning ability.
 
 ## The vision
 
@@ -33,14 +44,14 @@ This is an initial direction, and priorities may change as the project learns wh
 
 ## Getting started
 
-There is nothing to install or run yet. You can follow development on [GitHub](https://github.com/Cocopuff2223/Revity) or clone the repository to work on the project:
+There is no AI assistant to run yet. You can follow development on [GitHub](https://github.com/Cocopuff2223/Revity) or clone the repository to generate the starter datasets:
 
 ```sh
 git clone https://github.com/Cocopuff2223/Revity.git
 cd Revity
 ```
 
-Setup instructions will be added when a working prototype is available.
+The dataset tools use only Python's standard library. Assistant setup instructions will be added when a working prototype is available.
 
 ## Contributing
 
@@ -55,4 +66,4 @@ Use [GitHub Issues](https://github.com/Cocopuff2223/Revity/issues) to share an i
 
 ## License
 
-No license has been added yet. Public availability does not by itself grant permission to reuse or redistribute the project; those terms still need to be specified.
+Generated dataset contents are dedicated under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/). No source-code license has been added yet. The dataset dedication does not grant rights to any external model; a base model's license must be reviewed separately before redistribution.
