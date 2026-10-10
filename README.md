@@ -4,7 +4,11 @@
 
 Revity aims to make useful AI available on your own hardware, with efficiency and responsible resource use at the heart of its design. The goal is simple: build an assistant that helps people while being thoughtful about the resources it takes to run.
 
-> **Project status:** Dataset development stage. The repository includes reproducible synthetic starter data, an evaluation scorer, and automated tests. There is no trained Revity model or runnable AI assistant yet. A Qwen-based Revity 1.0 is a goal, not an available model release.
+> **Project status:** Chat prototype under validation. Terminal and browser chat code targets original Qwen3-0.6B weights. Model downloads are currently blocked in the build environment, so real responses have not been verified. No Revity-trained or 480B model is available.
+
+## Chat preview
+
+See [installation and chat instructions](docs/CHAT.md). The prototype runs locally after downloading Qwen3-0.6B; it is not a hosted demo. The original Qwen weights have not been fine-tuned with our datasets. [Validation status](docs/SMOKE_RESULTS.json) records the current download blocker.
 
 ## Starter datasets
 
@@ -44,14 +48,14 @@ This is an initial direction, and priorities may change as the project learns wh
 
 ## Getting started
 
-There is no AI assistant to run yet. You can follow development on [GitHub](https://github.com/Cocopuff2223/Revity) or clone the repository to generate the starter datasets:
+The chat prototype still needs real-inference validation. You can follow development on [GitHub](https://github.com/Cocopuff2223/Revity) or clone the repository to generate the starter datasets:
 
 ```sh
 git clone https://github.com/Cocopuff2223/Revity.git
 cd Revity
 ```
 
-The dataset tools use only Python's standard library. Assistant setup instructions will be added when a working prototype is available.
+The dataset tools use only Python's standard library. The chat prototype additionally requires PyTorch, Transformers, and downloaded model files; see the chat instructions above.
 
 ## Contributing
 

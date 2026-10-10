@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Revity · Local chat preview</title>
+<style>
+body{font:17px system-ui;background:#10141d;color:#e8ecf5;max-width:800px;margin:40px auto;padding:20px}h1{margin-bottom:4px}p{line-height:1.6}.muted{color:#a8b4ca}article{white-space:pre-wrap;border:1px solid #344052;border-radius:12px;padding:16px;margin:12px 0;overflow-wrap:anywhere}textarea{box-sizing:border-box;width:100%;background:#1b2331;color:inherit;padding:14px;border:1px solid #66768f;border-radius:10px;font:inherit}button{background:#b2e9cb;color:#13251b;border:0;border-radius:8px;padding:12px 20px;font:inherit;margin:10px 8px 0 0}button:disabled{opacity:.5}#status{min-height:28px;color:#e9c881}
+</style>
+<h1>Revity</h1><p class="muted">Local chat preview · Powered by Qwen3-0.6B</p>
+<p>Original Qwen weights; no Revity fine-tuning. This small model can make mistakes. Messages stay with this local server; no chat history is saved to disk.</p>
+<section id="conversation" aria-live="polite"></section>
+<form id="form"><label for="prompt">Your message</label><textarea id="prompt" rows="3" maxlength="8000" required></textarea><button id="send">Send</button><button id="reset" type="button">New chat</button></form><p id="status" role="status"></p>
+<script>
+const history=[], form=document.querySelector('#form'), prompt=document.querySelector('#prompt'), conversation=document.querySelector('#conversation'), status=document.querySelector('#status'), send=document.querySelector('#send'), reset=document.querySelector('#reset');
+function show(who,text){const item=document.createElement('article');item.textContent=who+'\n'+text;conversation.append(item);return item;}
+reset.onclick=()=>{history.length=0;conversation.replaceChildren();status.textContent='';prompt.focus();};
+form.onsubmit=async event=>{event.preventDefault();const text=prompt.value.trim();if(!text)return;send.disabled=reset.disabled=true;status.textContent='Generating on your CPU…';const user=show('You',text);try{const messages=history.slice(-20).concat([{role:'user',content:text}]);const response=await fetch('/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages})});const data=await response.json();if(!response.ok)throw new Error(data.error||'Request failed');history.push({role:'user',content:text},{role:'assistant',content:data.reply});show('Revity',data.reply);prompt.value='';status.textContent='';}catch(error){user.remove();status.textContent=error.message;}finally{send.disabled=reset.disabled=false;prompt.focus();}};
+</script></html>

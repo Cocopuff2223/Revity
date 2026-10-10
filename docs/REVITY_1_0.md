@@ -25,10 +25,16 @@ This identifies a candidate; it is not a claim of completed integration.
   and actually run training or adaptation if releasing a modified model.
 - Run and record model evaluations with exact model and dataset versions.
 - Package actual resulting artifacts with upstream attribution and license terms.
-- Restore GitHub API access before publishing release assets. Git pushes work,
-  but the repository API request returned Forbidden during preparation.
+- Allow `uploads.github.com` before publishing release assets. Repository API
+  access and Git pushes now work; the upload hostname remains blocked.
 
 GitHub hosts downloadable artifacts; publishing a repository or release does not
 train a model or provide its inference infrastructure. No Qwen weights have been
 downloaded or modified, and no Revity model performance results exist yet.
 The dataset preview must not be labeled as trained Revity 1.0 model weights.
+
+## Smaller chat prototype
+
+A separate Qwen3-0.6B chat interface now exists. Its weights are unmodified and
+real inference is blocked by CDN access. This does not complete the 480B target.
+See [chat instructions](CHAT.md) and [validation status](SMOKE_RESULTS.json).
